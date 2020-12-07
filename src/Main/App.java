@@ -20,7 +20,7 @@ public class App {
 	public void start() {
 		
 		Scanner sc = new Scanner(System.in);
-		int loginCheck = -1; // ·Î±×ÀÎ È®ÀÎ ¹× member °íÀ¯ ³Ñ¹ö
+		int loginCheck = -1; // ë¡œê·¸ì¸ í™•ì¸ ë° member ê³ ìœ ë„˜ë²„
 		
 		while(true) // while loop start
 		{
@@ -30,38 +30,46 @@ public class App {
 //======================================================================================= member func
 			if(cmd.equals("member sign up"))
 			{
-				memberFunc.memberSignupFunc(); // È¸¿ø°¡ÀÔ
+				memberFunc.memberSignupFunc(); // íšŒì›ê°€ìž…
 			}
 			else if(cmd.equals("member sign in"))
 			{
-				loginCheck = memberFunc.memberSigninFunc(member, loginCheck); // ·Î±×ÀÎ
+				loginCheck = memberFunc.memberSigninFunc(member, loginCheck); // ë¡œê·¸ì¸
 			}
 			else if(cmd.equals("member log out"))
 			{
-				loginCheck = memberFunc.memberLogout(loginCheck); // ·Î±×¾Æ¿ô
+				loginCheck = memberFunc.memberLogout(loginCheck); // ë¡œê·¸ì•„ì›ƒ
 			}
 //======================================================================================= member func
 
 //======================================================================================= article func
 			else if(cmd.equals("article list"))
 			{
-				print.articleList(); // °Ô½Ã¹° Ãâ·Â
+				print.articleList(); // ê²Œì‹œë¬¼ ì¶œë ¥
 			}
 			else if(cmd.equals("article add"))
 			{
-				articleFunc.articleAdd(loginCheck); // °Ô½Ã¹° Ãß°¡
+				articleFunc.articleAdd(loginCheck); // ê²Œì‹œë¬¼ ì¶”ê°€
 			}
 			else if(cmd.equals("article delete"))
 			{
-				articleFunc.articleDelete(loginCheck); // °Ô½Ã¹° »èÁ¦
+				articleFunc.articleDelete(loginCheck); // ê²Œì‹œë¬¼ ì‚­ì œ
 			}
 			else if(cmd.equals("article update"))
 			{
-				articleFunc.articleUpdate(loginCheck); // °Ô½Ã¹° ¼öÁ¤
+				articleFunc.articleUpdate(loginCheck); // ê²Œì‹œë¬¼ ìˆ˜ì •
 			}
 			else if(cmd.equals("article read"))
 			{
-				articleFunc.articleRead(loginCheck); // °Ô½Ã¹° »ó¼¼º¸±â
+				articleFunc.articleRead(loginCheck); // ê²Œì‹œë¬¼ ìƒì„¸ë³´ê¸°
+			}
+			else if(cmd.equals("article search"))
+			{
+				articleFunc.articleSearch(); // ê²Œì‹œë¬¼ ê²€ìƒ‰
+			}
+			else if(cmd.equals("article sort"))
+			{
+				articleFunc.articleSort(); // ê²Œì‹œë¬¼ ì •ë ¬
 			}
 //======================================================================================= article func
 			
@@ -69,7 +77,7 @@ public class App {
 			
 			else if(cmd.equals("exit"))
 			{
-				System.out.println("Á¾·á µÇ¾ú½À´Ï´Ù."); // ³ª°¡±â
+				System.out.println("ì¢…ë£Œ ë˜ì—ˆìŠµë‹ˆë‹¤."); // ë‚˜ê°€ê¸°
 				break;
 			}
 		}
@@ -81,11 +89,11 @@ public class App {
 		if(loginCheck >= 0)
 		{
 			member = memberDao.getMemberByLoginCheck(loginCheck);
-			System.out.print("¸í·É¾î¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä [" + member.getUserId() + "(" + member.getNickname() + ")] : ");
+			System.out.print("ëª…ë ¹ì–´ë¥¼ ìž…ë ¥í•´ ì£¼ì„¸ìš” [" + member.getUserId() + "(" + member.getNickname() + ")] : ");
 		}
 		else
 		{
-			System.out.print("¸í·É¾î¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä : ");
+			System.out.print("ëª…ë ¹ì–´ë¥¼ ìž…ë ¥í•´ ì£¼ì„¸ìš” : ");
 		}
 	}
 

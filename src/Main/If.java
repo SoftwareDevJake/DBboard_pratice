@@ -21,7 +21,7 @@ public class If {
 	{
 		if(loginCheck == -1)
 		{
-			System.out.println("·Î±×ÀÎÀÌ ÇÊ¿äÇÑ ±â´ÉÀÔ´Ï´Ù.");
+			System.out.println("ë¡œê·¸ì¸ì´ í•„ìš”í•œ ê¸°ëŠ¥ì…ë‹ˆë‹¤.");
 			return false;
 		}
 		else
@@ -38,7 +38,7 @@ public class If {
 		}
 		else
 		{
-			System.out.println("º»ÀÎ¸¸ »ç¿ë °¡´ÉÇÑ ±â´ÉÀÔ´Ï´Ù.");
+			System.out.println("ë³´ì¸ë§Œ ì‚¬ìš© ê°€ëŠ¥í•œ ê¸°ëŠ¥ì…ë‹ˆë‹¤.");
 			return false;
 		}
 	}
@@ -47,7 +47,7 @@ public class If {
 	{
 		if(article == null)
 		{
-			System.out.println("°Ô½Ã¹°ÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+			System.out.println("ê²Œì‹œë¬¼ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 			return false;
 		}
 		else
@@ -56,13 +56,21 @@ public class If {
 		}
 	}
 	
-	public boolean ifLiked(int articleId, int memberNum)
+	public boolean ifLiked(int likeCheck)
 	{
-		article = articleDao.getArticleByArticleId(articleId);
-		likes = likesDao.getLikesByArticleIdAndMemberNum(articleId, memberNum);
-		member = memberDao.getMemberByLoginCheck(memberNum);
-		
-		if(articleId) // ÁÁ¾Æ¿ä ÀÌ¹Ì ÇßÀ¸¸é ÁÁ¾Æ¿ä Ãë¼Ò, ¾Æ´Ï¸é ÁÁ¾Æ¿ä Ãß°¡ (ºñ±³ÇÏ±â)
+		if(likeCheck == -1)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+//		article = articleDao.getArticleByArticleId(articleId);
+//		likes = likesDao.getLikesByArticleIdAndMemberNum(articleId, memberNum);
+//		member = memberDao.getMemberByLoginCheck(memberNum);
+//		
+//		if(likes.getArticleId() == article.getArticleId() && likes.getMemberNum() == member.getMemberNum()) // ì´ë¯¸ ì¢‹ì•„ìš” í–ˆìœ¼ë©´ ì·¨ì†Œ, ì•„ë‹ˆë©´ ì¶”ê°€
 	}
 	
 }

@@ -20,4 +20,11 @@ public class LikesDao {
 		return db.getRow(sql, new LikesRowMapper(), articleId, memberNum);
 	}
 	
+	public int likesArticle(int like)
+	{
+		String sql = "update likes set like = ?";
+		
+		return db.updateQuery(sql, like);
+	}
+	
 }

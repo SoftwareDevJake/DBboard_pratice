@@ -11,15 +11,15 @@ import java.util.ArrayList;
 
 
 public class DBUtil {
-	// µå¶óÀÌ¹ö Á¤º¸
+	// ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½
 	String driver = "com.mysql.cj.jdbc.Driver";
-	// dbms ÁÖ¼Òp
+	// dbms ï¿½Ö¼ï¿½p
 	String url = "jdbc:mysql://localhost:3306/t1?serverTimezone=UTC";
 
-	// »ç¿ëÀÚ °èÁ¤
-	String user = "root";
-	// »ç¿ëÀÚ ºñ¹Ð¹øÈ£
-	String pass = "";
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	String user = "sbsst";
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ð¹ï¿½È£
+	String pass = "sbs123414";
 
 	Connection conn = null;
 

@@ -27,4 +27,10 @@ public class LikesFunc {
 		articleDao.updateLikes(like, articleId, memberNum);
 	}
 	
+	public void ArticleLikes(int articleId, int memberNum)
+	{
+		likes = likesDao.getLikesByArticleIdAndMemberNum(articleId, memberNum);
+		int like = likes.getLike();
+		likesDao.likesArticle(like+1);
+	}
 }

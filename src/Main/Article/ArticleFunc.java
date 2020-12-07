@@ -6,6 +6,8 @@ import java.util.Scanner;
 import Main.If;
 import Main.Print;
 import Main.Comment.CommentFunc;
+import Main.Likes.Likes;
+import Main.Likes.LikesFunc;
 import Main.Member.Member;
 import Main.Member.MemberDao;
 
@@ -19,10 +21,12 @@ public class ArticleFunc {
 	
 	Member member = new Member();
 	Article article = new Article();
+	Likes likes = new Likes();
 	If ifs = new If();
 	Print print = new Print();
 	
 	CommentFunc commentFunc = new CommentFunc();
+	LikesFunc likesFunc = new LikesFunc();
 	
 	Scanner sc = new Scanner(System.in);
 	
@@ -32,17 +36,18 @@ public class ArticleFunc {
 		{
 			member = memberDao.getMemberByLoginCheck(loginCheck);
 			
-			System.out.print("Á¦¸ñÀ» ÀÔ·ÂÇØ ÁÖ¼¼¿ä : ");
+			System.out.print("ì œëª©ì„ ì…ë ¥í•´ ì£¼ì„¸ìš” : ");
 			String title = sc.nextLine();
 			
-			System.out.print("³»¿ëÀ» ÀÔ·ÂÇØ ÁÖ¼¼¿ä : ");
+			System.out.print("ë‚´ìš©ì„ ì…ë ¥í•´ ì£¼ì„¸ìš” : ");
 			String body = sc.nextLine();
 			
 			articleDao.addArticle(title, body, member.getMemberNum(), 0, 0);
 			
 			article = articleDao.getArticleByMemberNum(member.getMemberNum());
+			likesFunc.likesInsert(article.getArticleId(), loginCheck); // ì¢‹ì•„ìš” í•­ëª© ì¶”ê°€
 			
-			System.out.println("°Ô½Ã¹°ÀÌ Ãß°¡µÇ¾ú½À´Ï´Ù!");
+			System.out.println("ê²Œì‹œë¬¼ì´ ì¶”ê°€ë˜ì—ˆìŠµë‹ˆë‹¤!");
 			print.articlePrint(article.getArticleId());
 		}
 	}
@@ -51,7 +56,7 @@ public class ArticleFunc {
 	{
 		if(ifs.ifLogin(loginCheck))
 		{
-			System.out.print("»èÁ¦ÇÒ °Ô½Ã¹° ¹øÈ£¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä : ");
+			System.out.print("ì‚­ì œí•  ê²Œì‹œë¬¼ ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš” : ");
 			int articleId = Integer.parseInt(sc.nextLine());
 			
 			article = articleDao.getArticleByArticleId(articleId);
@@ -61,7 +66,7 @@ public class ArticleFunc {
 				if(ifs.ifRightUser(loginCheck, article))
 				{
 					articleDao.deleteArticle(articleId);
-					System.out.println("°Ô½Ã¹°ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.");
+					System.out.println("ê²Œì‹œë¬¼ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.");
 				}
 			}
 		}
@@ -71,7 +76,7 @@ public class ArticleFunc {
 	{
 		if(ifs.ifLogin(loginCheck))
 		{
-			System.out.print("¼öÁ¤ÇÒ °Ô½Ã¹° ¹øÈ£¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä : ");
+			System.out.print("ìˆ˜ì •í•  ê²Œì‹œë¬¼ ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš” : ");
 			int articleId = Integer.parseInt(sc.nextLine());
 			
 			article = articleDao.getArticleByArticleId(articleId);
@@ -80,10 +85,10 @@ public class ArticleFunc {
 			{
 				if(ifs.ifRightUser(loginCheck, article))
 				{
-					System.out.print("¼öÁ¤ÇÒ Á¦¸ñÀ» ÀÔ·ÂÇØ ÁÖ¼¼¿ä : ");
+					System.out.print("ìˆ˜ì •í•  ì œëª©ì„ ì…ë ¥í•´ ì£¼ì„¸ìš” : ");
 					String title = sc.nextLine();
 					
-					System.out.print("¼öÁ¤ÇÒ ³»¿ëÀ» ÀÔ·ÂÇØ ÁÖ¼¼¿ä : ");
+					System.out.print("ìˆ˜ì •í•  ë‚´ìš©ì„ ì…ë ¥í•´ ì£¼ì„¸ìš” : ");
 					String body = sc.nextLine();
 					
 					articleDao.updateArticle(title, body, articleId);
@@ -94,14 +99,16 @@ public class ArticleFunc {
 	
 	public void articleRead(int loginCheck)
 	{
-		System.out.print("»ó¼¼º¸±âÇÒ °Ô½Ã¹° ¹øÈ£¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä : ");
+		System.out.print("ìƒì„¸ë³´ê¸°í•  ê²Œì‹œë¬¼ ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš” : ");
 		int articleId = Integer.parseInt(sc.nextLine());
 		
-		article = articleDao.readArticle(articleId); // ÇöÀç º¸°íÀÖ´Â °Ô½Ã¹° °íÀ¯ ¹øÈ£
+		article = articleDao.readArticle(articleId); // í˜„ì¬ ë³´ê³ ìˆëŠ” ê²Œì‹œë¬¼ ê³ ìœ  ë²ˆí˜¸
 		
 		int hit = article.getHit();
 		
-		articleDao.hitArticle(hit+1, articleId); // Á¶È¸¼ö 1 Ãß°¡
+		int likeCheck = -1;
+		
+		articleDao.hitArticle(hit+1, articleId); // ì¡°íšŒìˆ˜ 1 ì¶”ê°€
 		
 		if(ifs.ifArticleExists(article))
 		{
@@ -110,24 +117,35 @@ public class ArticleFunc {
 			{
 				if(ifs.ifLogin(loginCheck))
 				{
-					System.out.print("»ó¼¼º¸±â ±â´ÉÀ» ¼±ÅÃÇØÁÖ¼¼¿ä(1. ´ñ±Û µî·Ï, 2. ÁÁ¾Æ¿ä, 3. ¼öÁ¤, 4. »èÁ¦, 5. ¸ñ·ÏÀ¸·Î) : ");
+					System.out.print("ìƒì„¸ë³´ê¸° ê¸°ëŠ¥ì„ ì„ íƒí•´ì£¼ì„¸ìš”(1. ëŒ“ê¸€ ë“±ë¡, 2. ì¢‹ì•„ìš”, 3. ìˆ˜ì •, 4. ì‚­ì œ, 5. ëª©ë¡ìœ¼ë¡œ : ");
 					int choice = Integer.parseInt(sc.nextLine());
 					
 					if(choice == 1)
 					{
-						commentFunc.commentInsert(articleId); // ´ñ±Û µî·Ï
+						commentFunc.commentInsert(articleId, loginCheck); // ëŒ“ê¸€ ë“±ë¡
 					}
 					else if(choice == 2)
 					{
-						System.out.println("ÁÁ¾Æ¿ä");
+						
+						if(ifs.ifLiked(likeCheck))
+						{
+							
+							System.out.println("ì¢‹ì•„ìš”ë¥¼ ì·¨ì†Œí–ˆìŠµë‹ˆë‹¤.");
+						}
+						else
+						{
+							likesFunc.ArticleLikes(articleId, loginCheck);
+							System.out.println("ì¢‹ì•„ìš” í–ˆìŠµë‹ˆë‹¤.");
+						}
+						
 					}
 					else if(choice == 3)
 					{
-						System.out.println("¼öÁ¤");
+						System.out.println("ìˆ˜ì •");
 					}
 					else if(choice == 4)
 					{
-						System.out.println("»èÁ¦");
+						System.out.println("ì‚­ì œ");
 					}
 					else if(choice == 5)
 					{
@@ -141,5 +159,108 @@ public class ArticleFunc {
 			}
 		}
 		
+	}
+	
+	public void articleSearch()
+	{
+		System.out.print("ê²€ìƒ‰ í•­ëª©ì„ ì„ íƒí•´ ì£¼ì„¸ìš” (1. ì œëª©, 2. ë‚´ìš©, 3. ì œëª© + ë‚´ìš©, 4. ì‘ì„±ì) : ");
+		int choice = Integer.parseInt(sc.nextLine());
+		
+		if(choice == 1)
+		{
+			System.out.print("ì œëª© ê²€ìƒ‰ í‚¤ì›Œë“œë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš” : ");
+			String keyword = sc.nextLine();
+			
+			articles = articleDao.getArticleSearchByTitle(keyword);
+			
+			print.articlePrintBySearch(articles);
+		}
+		
+		else if(choice == 2)
+		{
+			System.out.println("ë‚´ìš© ê²€ìƒ‰ í‚¤ì›Œë“œë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš” : ");
+			String keyword = sc.nextLine();
+			
+			articles = articleDao.getArticleSearchByBody(keyword);
+			
+			print.articlePrintBySearch(articles);
+		}
+		
+		else if(choice == 3)
+		{
+			System.out.println("ì œëª© ë˜ëŠ” ë‚´ìš© ê²€ìƒ‰ í‚¤ì›Œë“œë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš” : ");
+			String keyword = sc.nextLine();
+			
+			articles = articleDao.getArticleSearchByTitleAndBody(keyword);
+			
+			print.articlePrintBySearch(articles);
+		}
+		
+		else if(choice == 4)
+		{
+			System.out.println("ë‹‰ë„¤ì„ ê²€ìƒ‰ í‚¤ì›Œë“œë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš” : ");
+			String keyword = sc.nextLine();
+			
+			articles = articleDao.getArticleSearchByNickname(keyword);
+			
+			print.articlePrintBySearch(articles);
+		}
+		
+		else
+		{
+			System.out.println("ì˜ëª» ì…ë ¥ í•˜ì…¨ìŠµë‹ˆë‹¤.");
+		}
+	}
+	
+	public void articleSort()
+	{
+		System.out.println("ì •ë ¬ ëŒ€ìƒì„ ì„ íƒí•´ì£¼ì„¸ìš”. (like : ì¢‹ì•„ìš”, hit : ì¡°íšŒìˆ˜) :");
+		String sortType = sc.nextLine();
+		
+		if(sortType.equals("like"))
+		{
+			System.out.println("ì •ë ¬ ë°©ë²•ì„ ì„ íƒí•´ì£¼ì„¸ìš”. (asc : ì˜¤ë¦„ì°¨ìˆœ, desc : ë‚´ë¦¼ì°¨ìˆœ) :");
+			String sortWay = sc.nextLine();
+			
+			if(sortWay.equals("asc"))
+			{
+				articles = articleDao.getArticleSortOrderByHitASC();
+				
+				print.articlePrintBySort(articles);
+			}
+			else if(sortWay.equals("desc"))
+			{
+				articles = articleDao.getArticleSortOrderByHitDESC();
+				
+				print.articlePrintBySort(articles);
+			}
+			else
+			{
+				System.out.println("ì˜ëª» ì…ë ¥ í•˜ì…¨ìŠµë‹ˆë‹¤.");
+			}
+		}
+		
+		else if(sortType.equals("hit"))
+		{
+			System.out.println("ì •ë ¬ ë°©ë²•ì„ ì„ íƒí•´ì£¼ì„¸ìš”. (asc : ì˜¤ë¦„ì°¨ìˆœ, desc : ë‚´ë¦¼ì°¨ìˆœ) :");
+			String sortWay = sc.nextLine();
+			
+			if(sortWay.equals("asc"))
+			{
+				articles = articleDao.getArticleSortOrderByHitASC();
+				
+				print.articlePrintBySort(articles);
+			}
+			else if(sortWay.equals("desc"))
+			{
+				articles = articleDao.getArticleSortOrderByHitDESC();
+				
+				print.articlePrintBySort(articles);
+			}
+			else
+			{
+				System.out.println("ì˜ëª» ì…ë ¥ í•˜ì…¨ìŠµë‹ˆë‹¤.");
+			}
+		}
 	}
 }

@@ -71,4 +71,46 @@ public class ArticleDao {
 		
 		return db.updateQuery(sql, likes, articleId, memberNum);
 	}
+	
+	public ArrayList<Article> getArticleSearchByTitle(String keyword)
+	{
+		String sql = "select * from article where title like concat_ws(?,'%','%')";
+		
+		return db.getRows(sql, new ArticleRowMapper(), keyword);
+	}
+	
+	public ArrayList<Article> getArticleSearchByBody(String keyword)
+	{
+		String sql = "select * from article where body like concat_ws(?,'%','%')";
+		
+		return db.getRows(sql, new ArticleRowMapper(), keyword);
+	}
+	
+	public ArrayList<Article> getArticleSearchByTitleAndBody(String keyword)
+	{
+		String sql = "select * from article where title like concat_ws(?,'%','%') or body like concat_ws(?,'%','%')";
+		
+		return db.getRows(sql, new ArticleRowMapper(), keyword, keyword);
+	};
+	
+	public ArrayList<Article> getArticleSearchByNickname(String keyword)
+	{
+		String sql = "SELECT * FROM article a INNER JOIN members m ON a.memberNum = m.num WHERE nickname LIKE CONCAT_WS(?,'%','%')";
+		
+		return db.getRows(sql, new ArticleRowMapper(), keyword);
+	}
+	
+	public ArrayList<Article> getArticleSortOrderByHitASC()
+	{
+		String sql = "SELECT * FROM article ORDER BY hit";
+		
+		return db.getRows(sql, new ArticleRowMapper());
+	}
+	
+	public ArrayList<Article> getArticleSortOrderByHitDESC()
+	{
+		String sql = "SELECT * FROM article ORDER BY hit desc";
+		
+		return db.getRows(sql, new ArticleRowMapper());
+	}
 }

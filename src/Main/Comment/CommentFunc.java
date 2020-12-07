@@ -25,22 +25,22 @@ public class CommentFunc {
 	
 	Scanner sc = new Scanner(System.in);
 	
-	public void commentInsert(int articleNo)
+	public void commentInsert(int articleNo, int loginCheck)
 	{
-		System.out.print("´ñ±Û ³»¿ëÀ» ÀÔ·ÂÇØ ÁÖ¼¼¿ä : ");
+		System.out.print("ëŒ“ê¸€ ë‚´ìš©ì„ ì…ë ¥í•´ ì£¼ì„¸ìš” : ");
 		String comments = sc.nextLine();
 		
 		article = articleDao.getArticleByArticleId(articleNo);
-		member = memberDao.getMemberByLoginCheck(article.getMemberNum()-1); // ÀÌ
-//		members = memberDao.getMembers(); // ÇØ
+		member = memberDao.getMemberByLoginCheck(loginCheck);
+//		members = memberDao.getMembers();
 		
-//		String nickname = members.get(article.getMemberNum()).getNickname(); // ¾È°¡
+//		String nickname = members.get(article.getMemberNum()-1).getNickname();
 		
 		String nickname = member.getNickname();
 		System.out.println("nickname = " + nickname);
 		
 		commentDao.insertComment(comments, nickname, articleNo);
-		System.out.println("´ñ±Û ÀÔ·Â ¿Ï·áÇÏ¿´½À´Ï´Ù!");
+		System.out.println("ëŒ“ê¸€ ì…ë ¥ ì™„ë£Œí•˜ì˜€ìŠµë‹ˆë‹¤!");
 		
 		print.articlePrint(articleNo);
 		print.commentPrint(articleNo);

@@ -9,13 +9,13 @@ public class MemberFunc {
 	
 	public void memberSignupFunc()
 	{
-		System.out.print("È¸¿ø ¾ÆÀÌµğ¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä : ");
+		System.out.print("íšŒì› ì•„ì´ë””ë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš” : ");
 		String memberId = sc.nextLine();
 		
-		System.out.print("È¸¿ø ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä : ");
+		System.out.print("íšŒì› ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš” : ");
 		String memberPass = sc.nextLine();
 		
-		System.out.print("È¸¿ø ´Ğ³×ÀÓÀ» ÀÔ·ÂÇØ ÁÖ¼¼¿ä : ");
+		System.out.print("íšŒì› ë‹‰ë„¤ì„ì„ ì…ë ¥í•´ ì£¼ì„¸ìš” : ");
 		String nickname = sc.nextLine();
 		
 		memberDao.memberSignup(memberId, memberPass, nickname);
@@ -26,15 +26,15 @@ public class MemberFunc {
 		if(loginCheck >= 0)
 		{
 			member = memberDao.getMemberByLoginCheck(loginCheck);
-			System.out.println("ÀÌ¹Ì " + member.getNickname() + "´ÔÀ¸·Î ·Î±×ÀÎ ÇÏ¼Ì½À´Ï´Ù.");
+			System.out.println("ì´ë¯¸ " + member.getNickname() + "ë‹˜ìœ¼ë¡œ ë¡œê·¸ì¸ í•˜ì…¨ìŠµë‹ˆë‹¤.");
 			return loginCheck;
 		}
 		else
 		{
-			System.out.print("¾ÆÀÌµğ¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä : ");
+			System.out.print("ì•„ì´ë””ë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš” : ");
 			String loginId = sc.nextLine();
 			
-			System.out.print("ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä : ");
+			System.out.print("ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš” : ");
 			String loginPass = sc.nextLine();
 			
 			member = memberDao.getMemberByMemberIdAndPass(loginId, loginPass);
@@ -42,14 +42,14 @@ public class MemberFunc {
 		
 			if(member == null)
 			{
-				System.out.println("·Î±×ÀÎ¿¡ ½ÇÆĞÇÏ¼Ì½À´Ï´Ù.");
+				System.out.println("ë¡œê·¸ì¸ì— ì‹¤íŒ¨í•˜ì…¨ìŠµë‹ˆë‹¤.");
 				return loginCheck;
 			}
 			
 			else
 			{
 				loginCheck = member.getMemberNum();
-				System.out.println("È¯¿µÇÕ´Ï´Ù " + member.getNickname() + "´Ô!");
+				System.out.println("í™˜ì˜í•©ë‹ˆë‹¤ " + member.getNickname() + "ë‹˜!");
 				return loginCheck;
 			}
 		}
@@ -60,12 +60,12 @@ public class MemberFunc {
 		if(loginCheck >= 0)
 		{
 			loginCheck = -1;
-			System.out.println("·Î±×¾Æ¿ô ÇÏ¼Ì½À´Ï´Ù.");
+			System.out.println("ë¡œê·¸ì•„ì›ƒ í•˜ì…¨ìŠµë‹ˆë‹¤.");
 			return loginCheck;
 		}
 		else
 		{
-			System.out.println("·Î±×ÀÎÀÌ ÇÊ¿äÇÑ ±â´ÉÀÔ´Ï´Ù.");
+			System.out.println("ë¡œê·¸ì¸ì´ í•„ìš”í•œ ê¸°ëŠ¥ì…ë‹ˆë‹¤.");
 			return loginCheck;
 		}
 	}

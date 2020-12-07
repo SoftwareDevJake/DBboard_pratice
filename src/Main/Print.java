@@ -31,7 +31,7 @@ public class Print {
 		
 		for(int i = 0; i < articles.size(); i++)
 		{
-			System.out.println("================" + articles.get(i).getArticleId() + "��° �Խù�================");
+			System.out.println("================" + articles.get(i).getArticleId() + "번째 게시물================");
 			System.out.println("articleId : " + articles.get(i).getArticleId());
 			System.out.println("title : " + articles.get(i).getTitle());
 			System.out.println("body : " + articles.get(i).getBody());
@@ -64,7 +64,7 @@ public class Print {
 		
 		for(int i = 0; i < comments.size(); i++)
 		{
-			System.out.println("================ ��� ================");
+			System.out.println("================ 댓글 ================");
 			System.out.println("commentId : " + comments.get(i).getCommentId());
 			System.out.println("comment : " + comments.get(i).getComment());
 			System.out.println("nickname : " + comments.get(i).getNickname());
@@ -75,4 +75,35 @@ public class Print {
 		System.out.println("=======================================");
 	}
 	
+	public void articlePrintBySearch(ArrayList<Article> articles)
+	{
+		members = memberDao.getMembers();
+		for(int i = 0; i < articles.size(); i++)
+		{
+			System.out.println("================" + articles.get(i).getArticleId() + "번째 게시물================");
+			System.out.println("articleId : " + articles.get(i).getArticleId());
+			System.out.println("title : " + articles.get(i).getTitle());
+			System.out.println("body : " + articles.get(i).getBody());
+			System.out.println("nickname : " + members.get(articles.get(i).getMemberNum()-1).getNickname());
+			System.out.println("regDate : " + articles.get(i).getRegDate());
+			System.out.println("hit : " + articles.get(i).getHit());
+			System.out.println("likes : " + articles.get(i).getLikes());
+		}
+	}
+	
+	public void articlePrintBySort(ArrayList<Article> articles)
+	{
+		members = memberDao.getMembers();
+		for(int i = 0; i < articles.size(); i++)
+		{
+			System.out.println("================" + articles.get(i).getArticleId() + "번째 게시물================");
+			System.out.println("articleId : " + articles.get(i).getArticleId());
+			System.out.println("title : " + articles.get(i).getTitle());
+			System.out.println("body : " + articles.get(i).getBody());
+			System.out.println("nickname : " + members.get(articles.get(i).getMemberNum()-1).getNickname());
+			System.out.println("regDate : " + articles.get(i).getRegDate());
+			System.out.println("hit : " + articles.get(i).getHit());
+			System.out.println("likes : " + articles.get(i).getLikes());
+		}
+	}
 }

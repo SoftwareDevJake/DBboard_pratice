@@ -9,6 +9,7 @@ public class Article {
 	private String regDate;
 	private int hit;
 	private int likes;
+	
 	public int getArticleId() {
 		return articleId;
 	}
