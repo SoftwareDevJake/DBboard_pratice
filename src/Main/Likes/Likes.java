@@ -5,6 +5,7 @@ public class Likes {
 	private int like;
 	private int articleId;
 	private int memberNum;
+	// 어떤 게시물의 어떤 멤버가 좋앙 ㅛ했는지 구별할 변수
 	
 	public Likes()
 	{
