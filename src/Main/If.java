@@ -56,9 +56,9 @@ public class If {
 		}
 	}
 	
-	public boolean ifLiked(int likeCheck)
+	public boolean ifLiked(Likes like_c)
 	{
-		if(likeCheck == -1)
+		if(like_c == null)
 		{
 			return false;
 		}

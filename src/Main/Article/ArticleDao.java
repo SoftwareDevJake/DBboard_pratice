@@ -67,7 +67,7 @@ public class ArticleDao {
 	
 	public int updateLikes(int likes, int articleId, int memberNum)
 	{
-		String sql = "update article set like = ? where id = ? and memberNum = ?";
+		String sql = "update article set likes = ? where id = ? and memberNum = ?";
 		
 		return db.updateQuery(sql, likes, articleId, memberNum);
 	}

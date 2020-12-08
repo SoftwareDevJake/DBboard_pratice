@@ -7,6 +7,7 @@ import Main.If;
 import Main.Print;
 import Main.Comment.CommentFunc;
 import Main.Likes.Likes;
+import Main.Likes.LikesDao;
 import Main.Likes.LikesFunc;
 import Main.Member.Member;
 import Main.Member.MemberDao;
@@ -15,13 +16,14 @@ public class ArticleFunc {
 	
 	ArticleDao articleDao = new ArticleDao();
 	MemberDao memberDao = new MemberDao();
+	LikesDao likesDao = new LikesDao();
 	
 	ArrayList<Article> articles = new ArrayList<>();
 	ArrayList<Member> members = new ArrayList<>();
 	
 	Member member = new Member();
 	Article article = new Article();
-	Likes likes = new Likes();
+	Likes like_c = new Likes();
 	If ifs = new If();
 	Print print = new Print();
 	
@@ -45,7 +47,7 @@ public class ArticleFunc {
 			articleDao.addArticle(title, body, member.getMemberNum(), 0, 0);
 			
 			article = articleDao.getArticleByMemberNum(member.getMemberNum());
-			likesFunc.likesInsert(article.getArticleId(), loginCheck); // 좋아요 항목 추가
+//			likesFunc.likesInsert(article.getArticleId(), loginCheck); // 좋아요 항목 추가
 			
 			System.out.println("게시물이 추가되었습니다!");
 			print.articlePrint(article.getArticleId());
@@ -106,7 +108,7 @@ public class ArticleFunc {
 		
 		int hit = article.getHit();
 		
-		int likeCheck = -1;
+		
 		
 		articleDao.hitArticle(hit+1, articleId); // 조회수 1 추가
 		
@@ -126,18 +128,20 @@ public class ArticleFunc {
 					}
 					else if(choice == 2)
 					{
-						
-						if(ifs.ifLiked(likeCheck))
+						like_c = likesDao.getLikesByArticleId(articleId);
+						if(ifs.ifLiked(like_c))
 						{
-							
+							likesFunc.ArticleLikesCancel(articleId, loginCheck);
 							System.out.println("좋아요를 취소했습니다.");
 						}
 						else
 						{
+							likesFunc.likesInsert(article.getArticleId(), loginCheck);
 							likesFunc.ArticleLikes(articleId, loginCheck);
 							System.out.println("좋아요 했습니다.");
 						}
-						
+						print.articlePrint(articleId);
+						print.commentPrint(articleId);
 					}
 					else if(choice == 3)
 					{
