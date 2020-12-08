@@ -113,4 +113,11 @@ public class ArticleDao {
 		
 		return db.getRows(sql, new ArticleRowMapper());
 	}
+	
+	public int updateLikesInArticle(int articleId, int likes)
+	{
+		String sql = "update article set likes = ? where id = ?";
+		
+		return db.updateQuery(sql, likes, articleId);
+	}
 }

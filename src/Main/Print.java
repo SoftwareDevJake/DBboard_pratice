@@ -70,7 +70,7 @@ public class Print {
 		}
 		else
 		{
-			like = article.getLikes());
+			like = article.getLikes();
 		}
 		
 		System.out.println("=======================================");

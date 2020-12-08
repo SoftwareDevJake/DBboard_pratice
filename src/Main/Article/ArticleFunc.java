@@ -106,63 +106,68 @@ public class ArticleFunc {
 		
 		article = articleDao.readArticle(articleId); // 현재 보고있는 게시물 고유 번호
 		
-		int hit = article.getHit();
-		
-		
-		
-		articleDao.hitArticle(hit+1, articleId); // 조회수 1 추가
-		
 		if(ifs.ifArticleExists(article))
 		{
-			print.articlePrint(articleId);
-			while(true)
+			int hit = article.getHit();
+			
+			articleDao.hitArticle(hit+1, articleId); // 조회수 1 추가
+			
+			if(ifs.ifArticleExists(article))
 			{
-				if(ifs.ifLogin(loginCheck))
+				print.articlePrint(articleId);
+				print.commentPrint(articleId);
+				while(true)
 				{
-					System.out.print("상세보기 기능을 선택해주세요(1. 댓글 등록, 2. 좋아요, 3. 수정, 4. 삭제, 5. 목록으로 : ");
-					int choice = Integer.parseInt(sc.nextLine());
-					
-					if(choice == 1)
+					if(ifs.ifLogin(loginCheck))
 					{
-						commentFunc.commentInsert(articleId, loginCheck); // 댓글 등록
-					}
-					else if(choice == 2)
-					{
-						like_c = likesDao.getLikesByArticleId(articleId);
-						if(ifs.ifLiked(like_c))
+						System.out.print("상세보기 기능을 선택해주세요(1. 댓글 등록, 2. 좋아요, 3. 수정, 4. 삭제, 5. 목록으로 : ");
+						int choice = Integer.parseInt(sc.nextLine());
+						
+						if(choice == 1)
 						{
-							likesFunc.ArticleLikesCancel(articleId, loginCheck);
-							System.out.println("좋아요를 취소했습니다.");
+							commentFunc.commentInsert(articleId, loginCheck); // 댓글 등록
+						}
+						else if(choice == 2)
+						{
+							like_c = likesDao.getLikesByArticleIdAndMemberNum(articleId, loginCheck);
+							
+							if(ifs.ifLiked(like_c))
+							{
+								likesFunc.ArticleLikesCancel(articleId, loginCheck);
+								System.out.println("\n좋아요를 취소했습니다.\n");
+							}
+							else
+							{
+								likesFunc.likesInsert(article.getArticleId(), loginCheck);
+								System.out.println("\n좋아요 했습니다.\n");
+							}
+							print.articlePrint(articleId);
+							print.commentPrint(articleId);
+						}
+						else if(choice == 3)
+						{
+							System.out.println("수정");
+						}
+						else if(choice == 4)
+						{
+							System.out.println("삭제");
+						}
+						else if(choice == 5)
+						{
+							break;
 						}
 						else
 						{
-							likesFunc.likesInsert(article.getArticleId(), loginCheck);
-							likesFunc.ArticleLikes(articleId, loginCheck);
-							System.out.println("좋아요 했습니다.");
+							System.out.println("다시 시도해 주세요.");
 						}
-						print.articlePrint(articleId);
-						print.commentPrint(articleId);
 					}
-					else if(choice == 3)
-					{
-						System.out.println("수정");
-					}
-					else if(choice == 4)
-					{
-						System.out.println("삭제");
-					}
-					else if(choice == 5)
+					else
 					{
 						break;
 					}
 				}
-				else
-				{
-					break;
-				}
 			}
 		}
-		
 	}
 	
 	public void articleSearch()

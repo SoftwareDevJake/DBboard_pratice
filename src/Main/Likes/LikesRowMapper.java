@@ -11,11 +11,11 @@ public class LikesRowMapper implements RowMapper<Likes> {
 	{
 		Likes like = new Likes();
 		
-		int l = rs.getInt("like");
+		String regDate = rs.getString("regDate");
 		int articleId = rs.getInt("articleId");
 		int memberNum = rs.getInt("memberNum");
 		
-		like.setLike(l);
+		like.setRegDate(regDate);
 		like.setArticleId(articleId);
 		like.setMemberNum(memberNum);
 		

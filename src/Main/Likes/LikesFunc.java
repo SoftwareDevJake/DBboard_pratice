@@ -23,31 +23,8 @@ public class LikesFunc {
 		int memberNum = member.getMemberNum();
 		int like = article.getLikes();
 		
-		if(article == null)
-		{
-			like = 0;
-		}
-		
-		likesDao.insertLikes(like, articleId, memberNum);
-		articleDao.updateLikes(like, articleId, memberNum);
-	}
-	
-	public void ArticleLikes(int articleId, int memberNum)
-	{
-		likes = likesDao.getLikesByArticleId(articleId);
-		article = articleDao.getArticleByArticleId(articleId);
-		int like;
-		// 다른 회원이 좋아요 할떄 1 더 추가해야함 (추가되지않고 1만 유지되는중)
-		if(likes == null)
-		{
-			like = 0;
-		}
-		else
-		{
-			like = article.getLikes();
-		}
-		
-		likesDao.likesArticle(like+1, articleId, memberNum);
+		likesDao.insertLikes(articleId, memberNum);
+		articleDao.updateLikesInArticle(articleId, (like+1));
 	}
 	
 	public void ArticleLikesCancel(int articleId, int loginCheck)
@@ -55,19 +32,10 @@ public class LikesFunc {
 		article = articleDao.getArticleByArticleId(articleId);
 		member = memberDao.getMemberByLoginCheck(loginCheck);
 		
-		int memberNum = member.getMemberNum();
-		int like;
-		
-		if(article == null)
-		{
-			like = 0;
-		}
-		else
-		{
-			like = article.getLikes();
-		}
+		int like = article.getLikes();
 		
 		likesDao.likesCancel(articleId, loginCheck);
-		articleDao.updateLikes(like, articleId, memberNum);
+		articleDao.updateLikesInArticle(articleId, (like-1));
+		article = articleDao.getArticleByArticleId(articleId);
 	}
 }

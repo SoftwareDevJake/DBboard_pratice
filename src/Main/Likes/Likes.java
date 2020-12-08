@@ -2,7 +2,7 @@ package Main.Likes;
 
 public class Likes {
 	
-	private int like;
+	private String regDate;
 	private int articleId;
 	private int memberNum;
 	// 어떤 게시물의 어떤 멤버가 좋앙 ㅛ했는지 구별할 변수
@@ -12,16 +12,16 @@ public class Likes {
 		
 	}
 	
-	public Likes(int like, int articleId, int memberNum) {
-		this.like = like;
+	public Likes(String regDate, int articleId, int memberNum) {
+		this.regDate = regDate;
 		this.articleId = articleId;
 		this.memberNum = memberNum;
 	}
-	public int getLike() {
-		return like;
+	public String getRegDate() {
+		return regDate;
 	}
-	public void setLike(int like) {
-		this.like = like;
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
 	}
 	public int getArticleId() {
 		return articleId;
