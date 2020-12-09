@@ -66,11 +66,7 @@ public class If {
 		{
 			return true;
 		}
-//		article = articleDao.getArticleByArticleId(articleId);
-//		likes = likesDao.getLikesByArticleIdAndMemberNum(articleId, memberNum);
-//		member = memberDao.getMemberByLoginCheck(memberNum);
-//		
-//		if(likes.getArticleId() == article.getArticleId() && likes.getMemberNum() == member.getMemberNum()) // 이미 좋아요 했으면 취소, 아니면 추가
+
 	}
-	
+
 }

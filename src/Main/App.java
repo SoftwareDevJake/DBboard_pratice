@@ -71,9 +71,11 @@ public class App {
 			{
 				articleFunc.articleSort(); // 게시물 정렬
 			}
+			else if(cmd.equals("article page"))
+			{
+				
+			}
 //======================================================================================= article func
-			
-			
 			
 			else if(cmd.equals("exit"))
 			{

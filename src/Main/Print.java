@@ -54,6 +54,28 @@ public class Print {
 			System.out.println("hit : " + articles.get(i).getHit());
 			System.out.println("likes : " + like);
 		}
+		
+		int currentPage = 2;
+		int pageCountInBlock = 5;
+		int articleCountPerPage = 3;
+		int currentPageBlock = (int)Math.ceil((double)currentPage / pageCountInBlock); // 올림
+		int startNoInCurrentPageBlock = pageCountInBlock * (currentPageBlock - 1) + 1;
+		int endNoInCurrentPageBlock = (startNoInCurrentPageBlock + pageCountInBlock) - 1;
+		// 페이지 보여주는거랑 연동아직 안됨 (페이지 넘버만 나옴)
+		
+		for(int i = startNoInCurrentPageBlock; i <= endNoInCurrentPageBlock; i++)
+		{
+			if(i == currentPage)
+			{
+				System.out.print("[" + i + "] ");
+			}
+			else
+			{
+				System.out.print(i + " ");
+			}
+			
+		}
+		System.out.println();
 	}
 	
 	public void articlePrint(int articleId)
